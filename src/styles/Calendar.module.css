@@ -62,6 +62,13 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 16px;
   min-height: 400px;
+  align-items: start;
+}
+
+.dayCards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* Empty state styling */

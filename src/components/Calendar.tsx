@@ -1,4 +1,5 @@
 import React from 'react'
+import AnimeCard from './AnimeCard'
 import styles from '../styles/Calendar.module.css'
 
 const Calendar: React.FC = () => {
@@ -36,9 +37,17 @@ const Calendar: React.FC = () => {
         ))}
       </div>
 
-      {/* Empty Grid Area (for anime cards in the future) */}
+      {/* Grid Area with Test Card */}
       <div className={styles.gridArea}>
-        {/* This will contain anime cards in the future */}
+        <div className={styles.dayCards}>
+          <AnimeCard
+            title="My Hero Academia"
+            imageUrl="https://cdn.myanimelist.net/images/anime/10/78745l.jpg"
+            tags={['Action', 'Superpower']}
+            isFavorite={true}
+            onToggleFavorite={() => console.log('Toggle favorite')}
+          />
+        </div>
       </div>
     </main>
   )
