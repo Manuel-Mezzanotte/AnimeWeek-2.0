@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Default theme colors */
+  --color-primary: #ff9b7d;
+  --color-secondary: #ffcbb3;
+  --color-bg: #fff5f0;
+  --color-sidebar: #ffd4c4;
+  --color-hover: #ffe8de;
+  --color-text-on-primary: #2d2220;
+  --color-text-main: #2d2220;
+  --color-border: rgba(45, 34, 32, 0.15);
+  
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s ease;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-sidebar);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-primary) 0%, rgba(255, 255, 255, 0.2) 100%);
+  border-radius: 5px;
+  border: 2px solid var(--color-sidebar);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable transition for specific elements */
+input,
+button,
+select,
+textarea {
+  transition: background-color 0.2s ease,
+              color 0.2s ease,
+              border-color 0.2s ease;
+}

@@ -1,0 +1,82 @@
+.calendar {
+  flex: 1;
+  height: 100vh;
+  background-color: var(--color-bg);
+  padding: 40px 60px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.currentDay {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+.daysHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.dayColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dayLabel {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--color-text-main);
+  padding: 14px 28px;
+  background-color: var(--color-hover);
+  border-radius: 8px;
+  border: 2px solid var(--color-border);
+  transition: var(--transition-fast);
+}
+
+.dayLabel:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Active day (current day) styling */
+.dayLabelActive {
+  background-color: var(--color-primary) !important;
+  color: var(--color-text-on-primary) !important;
+  border-color: var(--color-primary) !important;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.gridArea {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px;
+  min-height: 400px;
+}
+
+/* Empty state styling */
+.gridArea:empty::before {
+  content: 'No anime added yet. Use the sidebar to add your favorite shows!';
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-main);
+  opacity: 0.6;
+  font-size: 17px;
+  text-align: center;
+  padding: 60px;
+  background-color: var(--color-hover);
+  border: 2px dashed var(--color-border);
+  border-radius: 16px;
+}

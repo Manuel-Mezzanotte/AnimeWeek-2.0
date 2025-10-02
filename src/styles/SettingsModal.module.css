@@ -1,0 +1,118 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  background: var(--color-sidebar);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px solid var(--color-border);
+  border-radius: 28px;
+  padding: 32px 40px 36px 40px;
+  max-width: 920px;
+  width: 90%;
+  height: auto;
+  max-height: none;
+  overflow-y: visible;
+  z-index: 1000;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+  margin: 0 !important;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.themesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 48px;
+  padding: 8px;
+}
+
+.applyButton {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+  padding: 16px 32px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 12px;
+  color: var(--color-text-on-primary);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.applyButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.applyButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.applyButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Color Wave Animation */
+.colorWave {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .themesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .modal {
+    padding: 24px;
+    width: 95%;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .themesGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
