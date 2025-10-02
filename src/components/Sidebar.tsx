@@ -86,8 +86,6 @@ const Sidebar: React.FC = () => {
             />
           </div>
 
-          {/* Color Preview Bar */}
-          <div className={styles.colorPreview}></div>
 
           {/* Preview Button */}
           <button className={styles.previewButton} disabled>

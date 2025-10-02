@@ -14,7 +14,7 @@
   box-shadow: 
     8px 8px 0px rgba(0, 0, 0, 0.1),
     0 4px 12px rgba(0, 0, 0, 0.15);
-  border: 3px solid transparent;
+  border: none;
 }
 
 .card::before {
@@ -39,10 +39,18 @@
 .card.selected {
   transform: translateY(-8px) scale(1.05);
   box-shadow: 
-    12px 12px 0px var(--card-primary-color),
-    0 12px 32px rgba(0, 0, 0, 0.25),
-    0 0 0 4px rgba(255, 255, 255, 0.9);
-  border-color: rgba(255, 255, 255, 0.9);
+    12px 12px 0px rgba(0, 0, 0, 0.12),
+    0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.card.selected::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 38px;
+  border: 3px solid white;
+  pointer-events: none;
+  z-index: 10;
 }
 
 .iconContainer {
