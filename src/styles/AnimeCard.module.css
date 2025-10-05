@@ -89,6 +89,15 @@
   overflow: hidden;
 }
 
+.time {
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  opacity: 0.9;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  margin-bottom: 6px;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

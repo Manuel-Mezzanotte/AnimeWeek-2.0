@@ -7,6 +7,7 @@ interface AnimeCardProps {
   title: string
   imageUrl: string
   tags: string[]
+  time?: string
   isFavorite?: boolean
   onToggleFavorite?: () => void
 }
@@ -14,7 +15,8 @@ interface AnimeCardProps {
 const AnimeCard: React.FC<AnimeCardProps> = ({ 
   title, 
   imageUrl, 
-  tags, 
+  tags,
+  time,
   isFavorite = false,
   onToggleFavorite 
 }) => {
@@ -50,6 +52,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({
       {/* Content */}
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
+        {time && <div className={styles.time}>⏰ {time}</div>}
         <div className={styles.tags}>
           {tags.map((tag, index) => (
             <span 

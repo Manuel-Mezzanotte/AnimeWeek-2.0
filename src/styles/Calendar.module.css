@@ -40,11 +40,15 @@
   border-radius: 8px;
   border: 2px solid var(--color-border);
   transition: var(--transition-fast);
+  cursor: pointer;
+  width: 100%;
 }
 
 .dayLabel:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Active day (current day) styling */
@@ -54,6 +58,16 @@
   border-color: var(--color-primary) !important;
   font-weight: 800;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Selected day (filtered) styling */
+.dayLabelSelected {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)) !important;
+  color: var(--color-text-on-primary) !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 25px var(--color-primary),
+              0 6px 16px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
 }
 
 .gridArea {
@@ -66,9 +80,40 @@
 }
 
 .dayCards {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 100%;
+}
+
+/* When viewing single day, limit to 4 columns max */
+.gridArea[style*="1fr"] .dayCards {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.dayTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin: 0 0 16px 0;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-radius: 12px;
+  text-align: center;
+  color: var(--color-text-on-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.emptyDay {
+  padding: 20px;
+  text-align: center;
+  color: var(--color-text-main);
+  opacity: 0.4;
+  font-size: 13px;
+  font-style: italic;
+  background-color: var(--color-hover);
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
 }
 
 /* Empty state styling */
