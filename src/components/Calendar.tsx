@@ -12,8 +12,14 @@ const Calendar: React.FC<CalendarProps> = ({ animeList, onToggleFavorite }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   const daysShort = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
   
-  // Selected day filter (null = show all days)
-  const [selectedDay, setSelectedDay] = useState<string | null>(null)
+  // Selected day filter - default to current day
+  const getCurrentDayName = () => {
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const today = new Date()
+    return dayNames[today.getDay()]
+  }
+  
+  const [selectedDay, setSelectedDay] = useState<string | null>(getCurrentDayName())
   
   // Get current day name
   const getCurrentDay = () => {
@@ -37,16 +43,11 @@ const Calendar: React.FC<CalendarProps> = ({ animeList, onToggleFavorite }) => {
   }
 
   // Get days to display based on filter
-  const daysToDisplay = selectedDay ? [selectedDay] : days
+  const daysToDisplay = selectedDay ? [selectedDay] : [getCurrentDayName()]
 
   // Handle day click
-  const handleDayClick = (day: string, index: number) => {
-    // If clicking the current day, toggle between showing only that day and all days
-    if (selectedDay === days[index]) {
-      setSelectedDay(null)
-    } else {
-      setSelectedDay(days[index])
-    }
+  const handleDayClick = (_day: string, index: number) => {
+    setSelectedDay(days[index])
   }
 
   return (
@@ -80,16 +81,14 @@ const Calendar: React.FC<CalendarProps> = ({ animeList, onToggleFavorite }) => {
       </div>
 
       {/* Grid Area */}
-      <div className={styles.gridArea} style={{
-        gridTemplateColumns: selectedDay ? '1fr' : 'repeat(7, 1fr)'
-      }}>
+      <div className={styles.gridArea}>
         {daysToDisplay.map((day) => {
           const dayAnime = getAnimeByDay(day)
           return (
             <div key={day} className={styles.dayCards}>
               {dayAnime.length === 0 ? (
                 <div className={styles.emptyDay}>
-                  No anime for {selectedDay ? 'this day' : day}
+                  No anime for this day
                 </div>
               ) : (
                 dayAnime.map((anime) => (

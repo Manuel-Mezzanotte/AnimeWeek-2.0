@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import SettingsModal from './SettingsModal'
+import { searchAnime, AniListAnime, getPreferredTitle } from '../services/anilistApi'
 import styles from '../styles/Sidebar.module.css'
 
 export interface AnimeData {
@@ -16,14 +17,28 @@ interface SidebarProps {
   onAddAnime?: (anime: AnimeData) => void
   currentView?: 'calendar' | 'favorites'
   onViewChange?: (view: 'calendar' | 'favorites') => void
+  animeList?: AnimeData[]
+  onImportData?: (data: AnimeData[]) => void
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ 
   onAddAnime,
   currentView = 'calendar',
-  onViewChange 
+  onViewChange,
+  animeList = [],
+  onImportData
 }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  
+  // Local search state (search bar in top)
+  const [localSearchQuery, setLocalSearchQuery] = useState('')
+  
+  // API Search state (for Title field)
+  const [apiSearchQuery, setApiSearchQuery] = useState('')
+  const [apiSearchResults, setApiSearchResults] = useState<AniListAnime[]>([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [showApiResults, setShowApiResults] = useState(false)
+  const apiSearchTimeoutRef = useRef<NodeJS.Timeout>()
   
   // Form state
   const [title, setTitle] = useState('')
@@ -32,7 +47,50 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [tagInput, setTagInput] = useState('')
   const [tags, setTags] = useState<string[]>([])
   const [coverImage, setCoverImage] = useState('')
-  const [imagePreview, setImagePreview] = useState('')
+
+  // Search anime from API with debounce (for Title field)
+  useEffect(() => {
+    if (apiSearchTimeoutRef.current) {
+      clearTimeout(apiSearchTimeoutRef.current)
+    }
+
+    if (apiSearchQuery.trim().length < 2) {
+      setApiSearchResults([])
+      setShowApiResults(false)
+      return
+    }
+
+    setIsSearching(true)
+    apiSearchTimeoutRef.current = setTimeout(async () => {
+      const results = await searchAnime(apiSearchQuery)
+      setApiSearchResults(results)
+      setIsSearching(false)
+      setShowApiResults(true)
+    }, 500) // Debounce 500ms
+
+    return () => {
+      if (apiSearchTimeoutRef.current) {
+        clearTimeout(apiSearchTimeoutRef.current)
+      }
+    }
+  }, [apiSearchQuery])
+
+  // Handle selecting an anime from API search results
+  const handleSelectAnime = (anime: AniListAnime) => {
+    const selectedTitle = getPreferredTitle(anime)
+    setTitle(selectedTitle)
+    setApiSearchQuery('') // Clear search query to prevent re-search
+    setCoverImage(anime.coverImage.large)
+    setTags(anime.genres.slice(0, 3)) // Take first 3 genres
+    setShowApiResults(false)
+    setApiSearchResults([]) // Clear results
+  }
+
+  // Handle Title field change (triggers API search)
+  const handleTitleChange = (value: string) => {
+    setTitle(value)
+    setApiSearchQuery(value)
+  }
 
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +100,6 @@ const Sidebar: React.FC<SidebarProps> = ({
       reader.onloadend = () => {
         const result = reader.result as string
         setCoverImage(result)
-        setImagePreview(result)
       }
       reader.readAsDataURL(file)
     }
@@ -51,7 +108,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   // Handle image URL input
   const handleImageUrl = (url: string) => {
     setCoverImage(url)
-    setImagePreview(url)
   }
 
   // Add tag
@@ -93,12 +149,12 @@ const Sidebar: React.FC<SidebarProps> = ({
 
     // Reset form
     setTitle('')
+    setApiSearchQuery('')
     setDay('')
     setTime('')
     setTags([])
     setTagInput('')
     setCoverImage('')
-    setImagePreview('')
   }
 
   return (
@@ -118,8 +174,10 @@ const Sidebar: React.FC<SidebarProps> = ({
               <span className={styles.searchIcon}>🔍</span>
               <input 
                 type="text" 
-                placeholder="Search anime" 
+                placeholder="Search in my calendar..." 
                 className={styles.searchInput}
+                value={localSearchQuery}
+                onChange={(e) => setLocalSearchQuery(e.target.value)}
               />
             </div>
           </div>
@@ -149,13 +207,51 @@ const Sidebar: React.FC<SidebarProps> = ({
           <h3 className={styles.sectionTitle}>ADD ANIME</h3>
           
           <div className={styles.formGroup}>
-            <input 
-              type="text" 
-              placeholder="Title" 
-              className={styles.input}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+            <div className={styles.titleInputContainer}>
+              <input 
+                type="text" 
+                placeholder="Search anime title..." 
+                className={styles.input}
+                value={title}
+                onChange={(e) => handleTitleChange(e.target.value)}
+                onFocus={() => apiSearchResults.length > 0 && setShowApiResults(true)}
+              />
+              {isSearching && <span className={styles.titleSearchLoader}>⏳</span>}
+              
+              {/* API Search Results Dropdown */}
+              {showApiResults && apiSearchResults.length > 0 && (
+                <>
+                  <div className={styles.apiSearchResults}>
+                    {apiSearchResults.map((anime) => (
+                      <button
+                        key={anime.id}
+                        className={styles.searchResultItem}
+                        onClick={() => handleSelectAnime(anime)}
+                        type="button"
+                      >
+                        <img 
+                          src={anime.coverImage.medium} 
+                          alt={getPreferredTitle(anime)}
+                          className={styles.searchResultImage}
+                        />
+                        <div className={styles.searchResultInfo}>
+                          <div className={styles.searchResultTitle}>
+                            {getPreferredTitle(anime)}
+                          </div>
+                          <div className={styles.searchResultMeta}>
+                            {anime.format} • {anime.genres.slice(0, 2).join(', ')}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  <div 
+                    className={styles.searchOverlay}
+                    onClick={() => setShowApiResults(false)}
+                  />
+                </>
+              )}
+            </div>
           </div>
 
           <div className={styles.formGroup}>
@@ -230,12 +326,6 @@ const Sidebar: React.FC<SidebarProps> = ({
             </label>
           </div>
 
-          {imagePreview && (
-            <div className={styles.imagePreview}>
-              <img src={imagePreview} alt="Preview" />
-            </div>
-          )}
-
           {/* Preview Button */}
           <button 
             className={styles.previewButton}
@@ -264,6 +354,8 @@ const Sidebar: React.FC<SidebarProps> = ({
       <SettingsModal 
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
+        animeList={animeList}
+        onImportData={onImportData}
       />
     </>
   )

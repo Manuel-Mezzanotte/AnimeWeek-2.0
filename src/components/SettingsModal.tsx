@@ -3,14 +3,23 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 import { themes } from '../data/themes'
 import ThemeCard from './ThemeCard'
+import DataManager from './DataManager'
+import { AnimeData } from './Sidebar'
 import styles from '../styles/SettingsModal.module.css'
 
 interface SettingsModalProps {
   isOpen: boolean
   onClose: () => void
+  animeList?: AnimeData[]
+  onImportData?: (data: AnimeData[]) => void
 }
 
-const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
+const SettingsModal: React.FC<SettingsModalProps> = ({ 
+  isOpen, 
+  onClose,
+  animeList = [],
+  onImportData
+}) => {
   const { currentTheme, setTheme } = useTheme()
   const [selectedThemeId, setSelectedThemeId] = useState(currentTheme.id)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -64,6 +73,17 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                 />
               ))}
             </div>
+
+            {/* Data Manager */}
+            {onImportData && (
+              <DataManager 
+                animeList={animeList}
+                onImport={(data) => {
+                  onImportData(data)
+                  onClose()
+                }}
+              />
+            )}
 
             {/* Apply Button */}
             <button 

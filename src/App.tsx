@@ -3,23 +3,26 @@ import { ThemeProvider } from './context/ThemeContext'
 import Sidebar, { AnimeData } from './components/Sidebar'
 import Calendar from './components/Calendar'
 import Favorites from './components/Favorites'
+import { getAnimeFromStorage, saveAnimeToStorage, createBackup } from './services/storageService'
 import styles from './styles/App.module.css'
 
 const App: React.FC = () => {
   const [animeList, setAnimeList] = useState<AnimeData[]>([])
   const [currentView, setCurrentView] = useState<'calendar' | 'favorites'>('calendar')
 
-  // Load anime from localStorage on mount
+  // Load anime from storage on mount
   useEffect(() => {
-    const savedAnime = localStorage.getItem('animeList')
-    if (savedAnime) {
-      setAnimeList(JSON.parse(savedAnime))
-    }
+    const savedAnime = getAnimeFromStorage()
+    setAnimeList(savedAnime)
   }, [])
 
-  // Save anime to localStorage whenever it changes
+  // Save anime to storage whenever it changes
   useEffect(() => {
-    localStorage.setItem('animeList', JSON.stringify(animeList))
+    if (animeList.length > 0) {
+      saveAnimeToStorage(animeList)
+      // Create backup every time data changes
+      createBackup(animeList)
+    }
   }, [animeList])
 
   const handleAddAnime = (anime: AnimeData) => {
@@ -36,6 +39,10 @@ const App: React.FC = () => {
     )
   }
 
+  const handleImportData = (importedData: AnimeData[]) => {
+    setAnimeList(importedData)
+  }
+
   return (
     <ThemeProvider>
       <div className={styles.app}>
@@ -43,6 +50,8 @@ const App: React.FC = () => {
           onAddAnime={handleAddAnime}
           currentView={currentView}
           onViewChange={setCurrentView}
+          animeList={animeList}
+          onImportData={handleImportData}
         />
         {currentView === 'calendar' ? (
           <Calendar 
