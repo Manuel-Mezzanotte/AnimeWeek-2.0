@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Heart } from 'lucide-react'
 import AnimeCard from './AnimeCard'
 import AnimeDetailModal from './AnimeDetailModal'
 import { AnimeData } from './Sidebar'
@@ -43,7 +44,7 @@ const Favorites: React.FC<FavoritesProps> = ({
   return (
     <main className={styles.favorites}>
       <div className={styles.header}>
-        <h1 className={styles.title}>❤️ My Favorites</h1>
+        <h1 className={styles.title}><Heart size={36} strokeWidth={2.5} fill="currentColor" /> My Favorites</h1>
         <p className={styles.subtitle}>
           {favoriteAnime.length} {favoriteAnime.length === 1 ? 'anime' : 'anime'}
         </p>
@@ -51,7 +52,7 @@ const Favorites: React.FC<FavoritesProps> = ({
 
       {favoriteAnime.length === 0 ? (
         <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>❤️</div>
+          <div className={styles.emptyIcon}><Heart size={64} strokeWidth={1.5} /></div>
           <h2 className={styles.emptyTitle}>No favorites yet</h2>
           <p className={styles.emptyText}>
             Click the heart icon on any anime card to add it to your favorites!

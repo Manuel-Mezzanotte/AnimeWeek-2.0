@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Settings, Search, Calendar, Heart, Archive, Upload } from 'lucide-react'
 import SettingsModal from './SettingsModal'
 import { searchAnime, AniListAnime, getPreferredTitle } from '../services/anilistApi'
 import styles from '../styles/Sidebar.module.css'
@@ -170,10 +171,10 @@ const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => setIsSettingsOpen(true)}
               aria-label="Settings"
             >
-              ⚙️
+              <Settings size={20} />
             </button>
             <div className={styles.searchBar}>
-              <span className={styles.searchIcon}>🔍</span>
+              <span className={styles.searchIcon}><Search size={18} /></span>
               <input 
                 type="text" 
                 placeholder="Search in my calendar..." 
@@ -191,21 +192,21 @@ const Sidebar: React.FC<SidebarProps> = ({
             className={`${styles.navButton} ${currentView === 'calendar' ? styles.active : ''}`}
             onClick={() => onViewChange?.('calendar')}
           >
-            <span className={styles.navIcon}>📅</span>
+            <span className={styles.navIcon}><Calendar size={20} /></span>
             <span className={styles.navText}>Calendar</span>
           </button>
           <button 
             className={`${styles.navButton} ${currentView === 'favorites' ? styles.active : ''}`}
             onClick={() => onViewChange?.('favorites')}
           >
-            <span className={styles.navIcon}>❤️</span>
+            <span className={styles.navIcon}><Heart size={20} /></span>
             <span className={styles.navText}>Favorites</span>
           </button>
           <button 
             className={`${styles.navButton} ${currentView === 'archive' ? styles.active : ''}`}
             onClick={() => onViewChange?.('archive')}
           >
-            <span className={styles.navIcon}>📦</span>
+            <span className={styles.navIcon}><Archive size={20} /></span>
             <span className={styles.navText}>Archive</span>
           </button>
         </nav>
@@ -331,7 +332,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 className={styles.fileInput}
                 onChange={handleImageUpload}
               />
-              📁 Or upload image
+              <Upload size={18} /> Or upload image
             </label>
           </div>
 

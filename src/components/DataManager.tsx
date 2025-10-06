@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import { Download, Upload } from 'lucide-react'
 import { AnimeData } from './Sidebar'
 import { exportToJSON, importFromJSON, getStorageStats } from '../services/storageService'
 import styles from '../styles/DataManager.module.css'
@@ -64,14 +65,14 @@ const DataManager: React.FC<DataManagerProps> = ({ animeList, onImport }) => {
           onClick={handleExport}
           disabled={animeList.length === 0}
         >
-          📥 Export Data
+          <Download size={18} /> Export Data
         </button>
 
         <button 
           className={styles.importButton}
           onClick={handleImportClick}
         >
-          📤 Import Data
+          <Upload size={18} /> Import Data
         </button>
 
         <input

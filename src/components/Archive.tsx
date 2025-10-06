@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Archive as ArchiveIcon } from 'lucide-react'
 import AnimeCard from './AnimeCard'
 import AnimeDetailModal from './AnimeDetailModal'
 import { AnimeData } from './Sidebar'
@@ -42,7 +43,7 @@ const Archive: React.FC<ArchiveProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className={styles.title}>📦 Archive</h1>
+        <h1 className={styles.title}><ArchiveIcon size={36} strokeWidth={2.5} /> Archive</h1>
         <p className={styles.subtitle}>
           {archivedAnime.length} archived anime
         </p>
@@ -55,7 +56,7 @@ const Archive: React.FC<ArchiveProps> = ({
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <div className={styles.emptyIcon}>📦</div>
+          <div className={styles.emptyIcon}><ArchiveIcon size={64} strokeWidth={1.5} /></div>
           <p className={styles.emptyText}>No archived anime yet</p>
           <p className={styles.emptySubtext}>Archive anime to organize your collection</p>
         </motion.div>

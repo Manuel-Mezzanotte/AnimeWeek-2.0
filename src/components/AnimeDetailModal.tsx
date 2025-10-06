@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Trash2, Archive, RotateCcw } from 'lucide-react'
 import { AnimeData } from './Sidebar'
 import styles from '../styles/AnimeDetailModal.module.css'
 
@@ -95,7 +96,7 @@ const AnimeDetailModal: React.FC<AnimeDetailModalProps> = ({
                 className={styles.deleteButton}
                 onClick={handleDelete}
               >
-                🗑️ Delete
+                <Trash2 size={18} /> Delete
               </button>
               
               {isArchiveView ? (
@@ -103,14 +104,14 @@ const AnimeDetailModal: React.FC<AnimeDetailModalProps> = ({
                   className={styles.restoreButton}
                   onClick={handleRestore}
                 >
-                  ♻️ Restore
+                  <RotateCcw size={18} /> Restore
                 </button>
               ) : (
                 <button 
                   className={styles.archiveButton}
                   onClick={handleArchive}
                 >
-                  📦 Archive
+                  <Archive size={18} /> Archive
                 </button>
               )}
             </div>

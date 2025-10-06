@@ -16,6 +16,10 @@
   color: var(--color-text-main);
   margin: 0 0 8px 0;
   letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
 .subtitle {
@@ -49,9 +53,11 @@
 }
 
 .emptyIcon {
-  font-size: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 24px;
-  filter: grayscale(50%);
+  opacity: 0.3;
 }
 
 .emptyText {

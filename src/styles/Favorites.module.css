@@ -20,6 +20,9 @@
   font-weight: 700;
   color: var(--color-text-main);
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .subtitle {
@@ -41,9 +44,10 @@
 }
 
 .emptyIcon {
-  font-size: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0.3;
-  filter: grayscale(100%);
 }
 
 .emptyTitle {
