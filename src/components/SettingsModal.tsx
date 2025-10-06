@@ -23,6 +23,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const { currentTheme, setTheme } = useTheme()
   const [selectedThemeId, setSelectedThemeId] = useState(currentTheme.id)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [isDataManagementOpen, setIsDataManagementOpen] = useState(false)
 
   const handleApply = () => {
     if (selectedThemeId !== currentTheme.id) {
@@ -74,17 +75,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               ))}
             </div>
 
-            {/* Data Manager */}
-            {onImportData && (
-              <DataManager 
-                animeList={animeList}
-                onImport={(data) => {
-                  onImportData(data)
-                  onClose()
-                }}
-              />
-            )}
-
             {/* Apply Button */}
             <button 
               className={styles.applyButton}
@@ -93,6 +83,32 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
             >
               {isAnimating ? 'Applying...' : 'Apply'}
             </button>
+
+            {/* Data Manager Accordion */}
+            {onImportData && (
+              <div className={styles.dataManagerSection}>
+                <button 
+                  className={styles.accordionHeader}
+                  onClick={() => setIsDataManagementOpen(!isDataManagementOpen)}
+                >
+                  <span className={styles.accordionTitle}>
+                    {isDataManagementOpen ? '▼' : '▶'} Data Management
+                  </span>
+                </button>
+                
+                {isDataManagementOpen && (
+                  <div className={styles.accordionContent}>
+                    <DataManager 
+                      animeList={animeList}
+                      onImport={(data) => {
+                        onImportData(data)
+                        onClose()
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
           </motion.div>
 
           {/* Color Wave Animation Overlay */}
