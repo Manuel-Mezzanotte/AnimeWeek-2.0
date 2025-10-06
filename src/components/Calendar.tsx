@@ -1,16 +1,27 @@
 import React, { useState } from 'react'
 import AnimeCard from './AnimeCard'
+import AnimeDetailModal from './AnimeDetailModal'
 import { AnimeData } from './Sidebar'
 import styles from '../styles/Calendar.module.css'
 
 interface CalendarProps {
   animeList: AnimeData[]
   onToggleFavorite: (id: string) => void
+  onDeleteAnime: (id: string) => void
+  onArchiveAnime: (id: string) => void
 }
 
-const Calendar: React.FC<CalendarProps> = ({ animeList, onToggleFavorite }) => {
+const Calendar: React.FC<CalendarProps> = ({ 
+  animeList, 
+  onToggleFavorite,
+  onDeleteAnime,
+  onArchiveAnime
+}) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   const daysShort = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
+  
+  const [selectedAnime, setSelectedAnime] = useState<AnimeData | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   
   // Selected day filter - default to current day
   const getCurrentDayName = () => {
@@ -39,7 +50,17 @@ const Calendar: React.FC<CalendarProps> = ({ animeList, onToggleFavorite }) => {
 
   // Group anime by day
   const getAnimeByDay = (day: string) => {
-    return animeList.filter(anime => anime.day === day)
+    return animeList.filter(anime => anime.day === day && anime.status === 'active')
+  }
+
+  const handleCardClick = (anime: AnimeData) => {
+    setSelectedAnime(anime)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedAnime(null)
   }
 
   // Get days to display based on filter
@@ -92,21 +113,32 @@ const Calendar: React.FC<CalendarProps> = ({ animeList, onToggleFavorite }) => {
                 </div>
               ) : (
                 dayAnime.map((anime) => (
-                  <AnimeCard
-                    key={anime.id}
-                    title={anime.title}
-                    imageUrl={anime.coverImage}
-                    tags={anime.tags}
-                    time={anime.time}
-                    isFavorite={anime.isFavorite}
-                    onToggleFavorite={() => onToggleFavorite(anime.id)}
-                  />
+                  <div key={anime.id} onClick={() => handleCardClick(anime)}>
+                    <AnimeCard
+                      title={anime.title}
+                      imageUrl={anime.coverImage}
+                      tags={anime.tags}
+                      time={anime.time}
+                      isFavorite={anime.isFavorite}
+                      onToggleFavorite={() => onToggleFavorite(anime.id)}
+                    />
+                  </div>
                 ))
               )}
             </div>
           )
         })}
       </div>
+
+      {/* Detail Modal */}
+      <AnimeDetailModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        anime={selectedAnime}
+        onDelete={onDeleteAnime}
+        onArchive={onArchiveAnime}
+        isArchiveView={false}
+      />
     </main>
   )
 }

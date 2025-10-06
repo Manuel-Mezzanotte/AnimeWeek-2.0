@@ -83,6 +83,10 @@
   max-width: 100%;
 }
 
+.dayCards > div {
+  cursor: pointer;
+}
+
 .dayTitle {
   font-size: 28px;
   font-weight: 700;

@@ -11,12 +11,13 @@ export interface AnimeData {
   tags: string[]
   coverImage: string
   isFavorite: boolean
+  status: 'active' | 'archived'
 }
 
 interface SidebarProps {
   onAddAnime?: (anime: AnimeData) => void
-  currentView?: 'calendar' | 'favorites'
-  onViewChange?: (view: 'calendar' | 'favorites') => void
+  currentView?: 'calendar' | 'favorites' | 'archive'
+  onViewChange?: (view: 'calendar' | 'favorites' | 'archive') => void
   animeList?: AnimeData[]
   onImportData?: (data: AnimeData[]) => void
 }
@@ -80,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     const selectedTitle = getPreferredTitle(anime)
     setTitle(selectedTitle)
     setApiSearchQuery('') // Clear search query to prevent re-search
-    setCoverImage(anime.coverImage.large)
+    setCoverImage(anime.coverImage.extraLarge || anime.coverImage.large)
     setTags(anime.genres.slice(0, 3)) // Take first 3 genres
     setShowApiResults(false)
     setApiSearchResults([]) // Clear results
@@ -140,7 +141,8 @@ const Sidebar: React.FC<SidebarProps> = ({
       time,
       tags,
       coverImage: coverImage || 'https://via.placeholder.com/220x300?text=No+Image',
-      isFavorite: false
+      isFavorite: false,
+      status: 'active'
     }
 
     if (onAddAnime) {
@@ -199,6 +201,13 @@ const Sidebar: React.FC<SidebarProps> = ({
             <span className={styles.navIcon}>❤️</span>
             <span className={styles.navText}>Favorites</span>
           </button>
+          <button 
+            className={`${styles.navButton} ${currentView === 'archive' ? styles.active : ''}`}
+            onClick={() => onViewChange?.('archive')}
+          >
+            <span className={styles.navIcon}>📦</span>
+            <span className={styles.navText}>Archive</span>
+          </button>
         </nav>
 
         {/* Add Anime Section - Only show in Calendar view */}
@@ -230,7 +239,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         type="button"
                       >
                         <img 
-                          src={anime.coverImage.medium} 
+                          src={anime.coverImage.extraLarge || anime.coverImage.large} 
                           alt={getPreferredTitle(anime)}
                           className={styles.searchResultImage}
                         />

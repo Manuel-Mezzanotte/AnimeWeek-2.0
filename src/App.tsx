@@ -3,12 +3,13 @@ import { ThemeProvider } from './context/ThemeContext'
 import Sidebar, { AnimeData } from './components/Sidebar'
 import Calendar from './components/Calendar'
 import Favorites from './components/Favorites'
+import Archive from './components/Archive'
 import { getAnimeFromStorage, saveAnimeToStorage, createBackup } from './services/storageService'
 import styles from './styles/App.module.css'
 
 const App: React.FC = () => {
   const [animeList, setAnimeList] = useState<AnimeData[]>([])
-  const [currentView, setCurrentView] = useState<'calendar' | 'favorites'>('calendar')
+  const [currentView, setCurrentView] = useState<'calendar' | 'favorites' | 'archive'>('calendar')
 
   // Load anime from storage on mount
   useEffect(() => {
@@ -39,6 +40,30 @@ const App: React.FC = () => {
     )
   }
 
+  const handleDeleteAnime = (id: string) => {
+    setAnimeList(prev => prev.filter(anime => anime.id !== id))
+  }
+
+  const handleArchiveAnime = (id: string) => {
+    setAnimeList(prev => 
+      prev.map(anime => 
+        anime.id === id 
+          ? { ...anime, status: 'archived' } 
+          : anime
+      )
+    )
+  }
+
+  const handleRestoreAnime = (id: string) => {
+    setAnimeList(prev => 
+      prev.map(anime => 
+        anime.id === id 
+          ? { ...anime, status: 'active' } 
+          : anime
+      )
+    )
+  }
+
   const handleImportData = (importedData: AnimeData[]) => {
     setAnimeList(importedData)
   }
@@ -57,11 +82,22 @@ const App: React.FC = () => {
           <Calendar 
             animeList={animeList}
             onToggleFavorite={handleToggleFavorite}
+            onDeleteAnime={handleDeleteAnime}
+            onArchiveAnime={handleArchiveAnime}
           />
-        ) : (
+        ) : currentView === 'favorites' ? (
           <Favorites
             animeList={animeList}
             onToggleFavorite={handleToggleFavorite}
+            onDeleteAnime={handleDeleteAnime}
+            onArchiveAnime={handleArchiveAnime}
+          />
+        ) : (
+          <Archive
+            animeList={animeList}
+            onToggleFavorite={handleToggleFavorite}
+            onDeleteAnime={handleDeleteAnime}
+            onRestoreAnime={handleRestoreAnime}
           />
         )}
       </div>

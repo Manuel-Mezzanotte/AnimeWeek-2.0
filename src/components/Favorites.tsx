@@ -1,22 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AnimeCard from './AnimeCard'
+import AnimeDetailModal from './AnimeDetailModal'
 import { AnimeData } from './Sidebar'
 import styles from '../styles/Favorites.module.css'
 
 interface FavoritesProps {
   animeList: AnimeData[]
   onToggleFavorite: (id: string) => void
+  onDeleteAnime: (id: string) => void
+  onArchiveAnime: (id: string) => void
 }
 
-const Favorites: React.FC<FavoritesProps> = ({ animeList, onToggleFavorite }) => {
-  // Filter only favorite anime
-  const favoriteAnime = animeList.filter(anime => anime.isFavorite)
+const Favorites: React.FC<FavoritesProps> = ({ 
+  animeList, 
+  onToggleFavorite,
+  onDeleteAnime,
+  onArchiveAnime
+}) => {
+  const [selectedAnime, setSelectedAnime] = useState<AnimeData | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Filter only favorite anime with active status
+  const favoriteAnime = animeList.filter(anime => anime.isFavorite && anime.status === 'active')
 
   // Group favorites by day
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   
   const getFavoritesByDay = (day: string) => {
     return favoriteAnime.filter(anime => anime.day === day)
+  }
+
+  const handleCardClick = (anime: AnimeData) => {
+    setSelectedAnime(anime)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedAnime(null)
   }
 
   return (
@@ -47,15 +68,16 @@ const Favorites: React.FC<FavoritesProps> = ({ animeList, onToggleFavorite }) =>
                 <h2 className={styles.dayTitle}>{day}</h2>
                 <div className={styles.animeGrid}>
                   {dayFavorites.map((anime) => (
-                    <AnimeCard
-                      key={anime.id}
-                      title={anime.title}
-                      imageUrl={anime.coverImage}
-                      tags={anime.tags}
-                      time={anime.time}
-                      isFavorite={anime.isFavorite}
-                      onToggleFavorite={() => onToggleFavorite(anime.id)}
-                    />
+                    <div key={anime.id} onClick={() => handleCardClick(anime)}>
+                      <AnimeCard
+                        title={anime.title}
+                        imageUrl={anime.coverImage}
+                        tags={anime.tags}
+                        time={anime.time}
+                        isFavorite={anime.isFavorite}
+                        onToggleFavorite={() => onToggleFavorite(anime.id)}
+                      />
+                    </div>
                   ))}
                 </div>
               </div>
@@ -63,6 +85,16 @@ const Favorites: React.FC<FavoritesProps> = ({ animeList, onToggleFavorite }) =>
           })}
         </div>
       )}
+
+      {/* Detail Modal */}
+      <AnimeDetailModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        anime={selectedAnime}
+        onDelete={onDeleteAnime}
+        onArchive={onArchiveAnime}
+        isArchiveView={false}
+      />
     </main>
   )
 }

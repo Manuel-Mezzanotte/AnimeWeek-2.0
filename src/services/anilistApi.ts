@@ -10,6 +10,7 @@ export interface AniListAnime {
     native: string
   }
   coverImage: {
+    extraLarge: string
     large: string
     medium: string
   }
@@ -45,6 +46,7 @@ export const searchAnime = async (query: string): Promise<AniListAnime[]> => {
             native
           }
           coverImage {
+            extraLarge
             large
             medium
           }
@@ -95,6 +97,7 @@ export const getAnimeById = async (id: number): Promise<AniListAnime | null> => 
           native
         }
         coverImage {
+          extraLarge
           large
           medium
         }
