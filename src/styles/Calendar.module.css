@@ -9,11 +9,52 @@
   gap: 32px;
 }
 
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
 .currentDay {
   font-size: 48px;
   font-weight: 700;
   color: var(--color-text-main);
   margin: 0;
+}
+
+.archiveAllButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: transparent;
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text-main);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.archiveAllButton:hover:not(:disabled) {
+  background-color: var(--color-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.archiveAllButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.archiveAllButton svg {
+  width: 18px;
+  height: 18px;
 }
 
 .daysHeader {

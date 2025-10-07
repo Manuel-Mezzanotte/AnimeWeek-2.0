@@ -54,7 +54,9 @@
 }
 
 .exportButton,
-.importButton {
+.importButton,
+.upgradeButton,
+.seasonalButton {
   padding: 10px 16px;
   border-radius: 8px;
   font-size: 13px;
@@ -95,6 +97,63 @@
   background-color: var(--color-hover);
   border-color: var(--color-primary);
   transform: translateY(-2px);
+}
+
+.upgradeButton {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-main);
+}
+
+.upgradeButton:hover:not(:disabled) {
+  background-color: var(--color-hover);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.upgradeButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.seasonalButton {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.seasonalButton::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.seasonalButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px var(--color-primary),
+              0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .info {

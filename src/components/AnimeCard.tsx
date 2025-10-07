@@ -1,5 +1,5 @@
 import React from 'react'
-import { Heart } from 'lucide-react'
+import { Heart, Clock } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 import styles from '../styles/AnimeCard.module.css'
 
@@ -52,7 +52,11 @@ const AnimeCard: React.FC<AnimeCardProps> = ({
       {/* Content */}
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        {time && <div className={styles.time}>⏰ {time}</div>}
+        {time && (
+          <div className={styles.time}>
+            <Clock size={14} strokeWidth={2.5} /> {time}
+          </div>
+        )}
         <div className={styles.tags}>
           {tags.map((tag, index) => (
             <span 

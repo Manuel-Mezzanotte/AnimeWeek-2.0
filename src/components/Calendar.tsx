@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Archive } from 'lucide-react'
 import AnimeCard from './AnimeCard'
 import AnimeDetailModal from './AnimeDetailModal'
 import { AnimeData } from './Sidebar'
@@ -71,12 +72,38 @@ const Calendar: React.FC<CalendarProps> = ({
     setSelectedDay(days[index])
   }
 
+  // Archive all active anime
+  const handleArchiveAll = () => {
+    const activeAnime = animeList.filter(anime => anime.status === 'active')
+    
+    if (activeAnime.length === 0) {
+      alert('No active anime to archive!')
+      return
+    }
+
+    if (confirm(`Archive all ${activeAnime.length} anime? They will be moved to the Archive section.`)) {
+      activeAnime.forEach(anime => {
+        onArchiveAnime(anime.id)
+      })
+    }
+  }
+
   return (
     <main className={styles.calendar}>
-      {/* Current Day Title */}
-      <h1 className={styles.currentDay}>
-        {selectedDay || getCurrentDay()}
-      </h1>
+      {/* Current Day Title with Archive All Button */}
+      <div className={styles.headerRow}>
+        <h1 className={styles.currentDay}>
+          {selectedDay || getCurrentDay()}
+        </h1>
+        <button 
+          className={styles.archiveAllButton}
+          onClick={handleArchiveAll}
+          disabled={animeList.filter(a => a.status === 'active').length === 0}
+        >
+          <Archive size={18} />
+          Archive All
+        </button>
+      </div>
 
       {/* Week Days Header */}
       <div className={styles.daysHeader}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Settings, Search, Calendar, Heart, Archive, Upload } from 'lucide-react'
+import { Settings, Search, Calendar, Heart, Archive, Upload, Sparkles, Loader } from 'lucide-react'
 import SettingsModal from './SettingsModal'
+import SeasonalBrowser from './SeasonalBrowser'
 import { searchAnime, AniListAnime, getPreferredTitle } from '../services/anilistApi'
 import styles from '../styles/Sidebar.module.css'
 
@@ -21,6 +22,7 @@ interface SidebarProps {
   onViewChange?: (view: 'calendar' | 'favorites' | 'archive') => void
   animeList?: AnimeData[]
   onImportData?: (data: AnimeData[]) => void
+  onUpdateAnime?: (id: string, updates: Partial<AnimeData>) => void
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ 
@@ -28,9 +30,11 @@ const Sidebar: React.FC<SidebarProps> = ({
   currentView = 'calendar',
   onViewChange,
   animeList = [],
-  onImportData
+  onImportData,
+  onUpdateAnime
 }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const [isSeasonalBrowserOpen, setIsSeasonalBrowserOpen] = useState(false)
   
   // Local search state (search bar in top)
   const [localSearchQuery, setLocalSearchQuery] = useState('')
@@ -226,7 +230,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                 onChange={(e) => handleTitleChange(e.target.value)}
                 onFocus={() => apiSearchResults.length > 0 && setShowApiResults(true)}
               />
-              {isSearching && <span className={styles.titleSearchLoader}>⏳</span>}
+              {isSearching && (
+                <span className={styles.titleSearchLoader}>
+                  <Loader size={16} />
+                </span>
+              )}
               
               {/* API Search Results Dropdown */}
               {showApiResults && apiSearchResults.length > 0 && (
@@ -336,6 +344,14 @@ const Sidebar: React.FC<SidebarProps> = ({
             </label>
           </div>
 
+          {/* Browse Season Button */}
+          <button 
+            className={styles.browseSeasonButton}
+            onClick={() => setIsSeasonalBrowserOpen(true)}
+          >
+            <Sparkles size={18} /> Browse Season
+          </button>
+
           {/* Preview Button */}
           <button 
             className={styles.previewButton}
@@ -366,6 +382,19 @@ const Sidebar: React.FC<SidebarProps> = ({
         onClose={() => setIsSettingsOpen(false)}
         animeList={animeList}
         onImportData={onImportData}
+        onUpdateAnime={onUpdateAnime}
+      />
+
+      {/* Seasonal Browser Modal */}
+      <SeasonalBrowser
+        isOpen={isSeasonalBrowserOpen}
+        onClose={() => setIsSeasonalBrowserOpen(false)}
+        onImport={(importedAnime) => {
+          // Merge with existing anime
+          const mergedList = [...animeList, ...importedAnime]
+          onImportData?.(mergedList)
+        }}
+        existingAnime={animeList}
       />
     </>
   )

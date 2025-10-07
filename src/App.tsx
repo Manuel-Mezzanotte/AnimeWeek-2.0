@@ -68,6 +68,16 @@ const App: React.FC = () => {
     setAnimeList(importedData)
   }
 
+  const handleUpdateAnime = (id: string, updates: Partial<AnimeData>) => {
+    setAnimeList(prev => 
+      prev.map(anime => 
+        anime.id === id 
+          ? { ...anime, ...updates } 
+          : anime
+      )
+    )
+  }
+
   return (
     <ThemeProvider>
       <div className={styles.app}>
@@ -77,6 +87,7 @@ const App: React.FC = () => {
           onViewChange={setCurrentView}
           animeList={animeList}
           onImportData={handleImportData}
+          onUpdateAnime={handleUpdateAnime}
         />
         {currentView === 'calendar' ? (
           <Calendar 

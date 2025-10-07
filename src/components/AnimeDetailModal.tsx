@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Trash2, Archive, RotateCcw } from 'lucide-react'
+import { Trash2, Archive, RotateCcw, Calendar, Clock } from 'lucide-react'
 import { AnimeData } from './Sidebar'
 import styles from '../styles/AnimeDetailModal.module.css'
 
@@ -78,8 +78,14 @@ const AnimeDetailModal: React.FC<AnimeDetailModalProps> = ({
             <div className={styles.info}>
               <h2 className={styles.title}>{anime.title}</h2>
               <div className={styles.meta}>
-                <span className={styles.metaItem}>📅 {anime.day}</span>
-                {anime.time && <span className={styles.metaItem}>🕐 {anime.time}</span>}
+                <span className={styles.metaItem}>
+                  <Calendar size={16} strokeWidth={2.5} /> {anime.day}
+                </span>
+                {anime.time && (
+                  <span className={styles.metaItem}>
+                    <Clock size={16} strokeWidth={2.5} /> {anime.time}
+                  </span>
+                )}
               </div>
               {anime.tags.length > 0 && (
                 <div className={styles.tags}>

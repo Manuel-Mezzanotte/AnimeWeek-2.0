@@ -12,13 +12,15 @@ interface SettingsModalProps {
   onClose: () => void
   animeList?: AnimeData[]
   onImportData?: (data: AnimeData[]) => void
+  onUpdateAnime?: (id: string, updates: Partial<AnimeData>) => void
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({ 
   isOpen, 
   onClose,
   animeList = [],
-  onImportData
+  onImportData,
+  onUpdateAnime
 }) => {
   const { currentTheme, setTheme } = useTheme()
   const [selectedThemeId, setSelectedThemeId] = useState(currentTheme.id)
@@ -101,8 +103,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     <DataManager 
                       animeList={animeList}
                       onImport={(data) => {
-                        onImportData(data)
+                        onImportData?.(data)
                         onClose()
+                      }}
+                      onUpdateAnime={(id, updates) => {
+                        onUpdateAnime?.(id, updates)
                       }}
                     />
                   </div>
