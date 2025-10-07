@@ -38,20 +38,32 @@
   },
   "build": {
     "appId": "com.manuelmezzanotte.animeweek",
-    "productName": "AnimeWeek 2.0",
+    "productName": "AnimeWeek",
     "directories": {
       "output": "release"
     },
     "files": [
       "dist/**/*",
-      "dist-electron/**/*"
+      "dist-electron/**/*",
+      "src/image/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "src/image",
+        "to": "image",
+        "filter": [
+          "**/*.png"
+        ]
+      }
     ],
     "mac": {
       "category": "public.app-category.entertainment",
+      "icon": "build/icon.icns",
       "target": [
         "dmg",
         "zip"
-      ]
+      ],
+      "identity": null
     },
     "win": {
       "target": [

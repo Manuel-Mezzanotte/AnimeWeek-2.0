@@ -35,6 +35,15 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     document.documentElement.style.setProperty('--color-text-on-primary', theme.textOnPrimary)
     document.documentElement.style.setProperty('--color-text-main', theme.textMain)
     document.documentElement.style.setProperty('--color-border', theme.border)
+    
+    // Change Electron app icon
+    try {
+      const { ipcRenderer } = window.require('electron')
+      ipcRenderer.send('change-icon', theme.id)
+    } catch (error) {
+      // Not in Electron environment (e.g., browser)
+      console.log('Not running in Electron environment')
+    }
   }
 
   const setTheme = (themeId: string) => {
