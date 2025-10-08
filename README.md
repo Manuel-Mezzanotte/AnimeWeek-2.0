@@ -1,122 +1,102 @@
 # AnimeWeek 2.0
 
-## Panoramica del Progetto
+## Project Overview
 
-**AnimeWeek 2.0** è un'applicazione desktop multipiattaforma che trasforma la gestione degli anime in un'esperienza visiva e intuitiva. L'applicazione presenta un calendario settimanale intelligente dove ogni anime viene rappresentato attraverso card colorate e accattivanti, ognuna con l'artwork caratteristico della serie.
+**AnimeWeek 2.0** is a cross-platform desktop application that turns anime management into a visual and intuitive experience. The application features a smart weekly calendar where each anime is represented by colorful and attractive cards, each displaying the series' characteristic artwork.
 
-L'interfaccia è progettata per offrire una navigazione fluida e immediata, permettendo agli utenti di organizzare facilmente la propria settimana di visione anime con un solo sguardo.
+The interface is designed to offer smooth and immediate navigation, allowing users to easily organize their anime-watching week at a glance.
 
-## Caratteristiche Principali
+## Main Features
 
-### Design e Interfaccia
+### Design and Interface
 
-- **Sistema di Temi Multipli**: 6 temi personalizzabili dalle impostazioni (Orange Flame, Sakura Pink, Ocean Blue, Cream Elegance, Royal Purple, Sunset Gold)
-- **Layout Intuitivo**: Barra laterale fissa per la navigazione e area principale per il calendario
-- **Card Anime Immersive**: Ogni anime è rappresentato da una card colorata con artwork di sfondo
-- **Theming Dinamico**: Cambio tema istantaneo con transizioni fluide senza riavvio
+- **Multiple Theme System**: 6 customizable themes selectable from settings (Orange Flame, Sakura Pink, Ocean Blue, Cream Elegance, Royal Purple, Sunset Gold)
+- **Intuitive Layout**: Fixed sidebar for navigation and main area for the calendar
+- **Immersive Anime Cards**: Each anime is represented by a colored card with background artwork
+- **Dynamic Theming**: Instant theme switching with smooth transitions and no restart
 
-### Organizzazione Settimanale
+### Weekly Organization
 
-- **Calendario a Griglia**: I sette giorni della settimana disposti orizzontalmente nella parte superiore
-- **Posizionamento Automatico**: Le card si posizionano automaticamente sotto il giorno di programmazione
-- **Vista Giornaliera Dinamica**: Il giorno corrente viene evidenziato per orientamento immediato
-- **Gestione Visiva**: Colpo d'occhio immediato su tutti gli anime della settimana
+- **Grid Calendar**: The seven days of the week arranged horizontally at the top
+- **Automatic Placement**: Cards automatically positioned under the scheduled day
+- **Dynamic Daily View**: The current day is highlighted for immediate orientation
+- **Visual Management**: Immediate overview of all the week's anime
 
-### Sistema di Ricerca e Aggiunta
+### Search and Add System
 
-- **Search Bar Superiore**: Ricerca rapida degli anime già aggiunti al calendario
-- **Integrazione AniList**: Database completo con artwork, generi e informazioni aggiornate
-- **Aggiunta Manuale**: Possibilità di inserire anime personalizzati non presenti nel database
-- **Preview in Tempo Reale**: Anteprima della card durante la configurazione
+- **Top Search Bar**: Fast search for anime already added to the calendar
+- **AniList Integration**: Comprehensive database with artwork, genres, and updated information
+- **Manual Addition**: Ability to input custom anime not present in the database
+- **Real-time Preview**: Card preview during configuration
 
-## Interfaccia Utente Dettagliata
+## Detailed User Interface
 
-### Barra Laterale Sinistra
+### Left Sidebar
 
-- **Search Anime**: Campo di ricerca in alto per filtrare rapidamente gli anime già aggiunti
-- **Calendar**: Vista principale del calendario settimanale
-- **Favorites**: Accesso rapido agli anime preferiti marcati con il cuore
-- **ADD ANIME Panel**: Sezione per aggiungere nuovi anime con campi per Title, Day, Time, Tags e pulsante Preview
+- **Search Anime**: Search field at the top to quickly filter already added anime
+- **Calendar**: Main view of the weekly calendar
+- **Favorites**: Quick access to favorite anime marked with a heart
+- **ADD ANIME Panel**: Section to add new anime with fields for Title, Day, Time, Tags, and Preview button
 
-### Area Calendario Principale
+### Main Calendar Area
 
-- **Header Giorni**: Barra orizzontale con i sette giorni della settimana (MON-SUN)
-- **Grid delle Card Anime**: Layout a griglia fluido con card colorate contenenti artwork, titolo, generi e icona preferiti
-- **Esempi**: My Hero Academia (arancione), Spy x Family (verde), Demon Slayer (rosso), One Piece (blu/arancione)
+- **Days Header**: Horizontal bar with the seven days of the week (MON-SUN)
+- **Anime Card Grid**: Fluid grid layout with colored cards containing artwork, title, genres, and favorite icon
+- **Examples**: My Hero Academia (orange), Spy x Family (green), Demon Slayer (red), One Piece (blue/orange)
 
-## Tecnologie e Architettura
+## Technologies and Architecture
 
-### Stack Tecnologico
+### Technology Stack
 
-- **Electron Framework**: Applicazione desktop nativa multipiattaforma con tecnologie web moderne
-- **React con TypeScript**: Interfaccia utente reattiva e type-safe per sviluppo robusto
-- **Sistema di Animazioni Avanzato**: Transizioni fluide e micro-interazioni coinvolgenti
-- **Theming Dinamico**: Architettura CSS modulare per cambio tema istantaneo
-- **Storage Locale Ottimizzato**: Gestione efficiente dei dati offline per prestazioni rapide
-- **GraphQL Integration**: Connessione ottimizzata con l'API AniList per dati aggiornati
+- **Electron Framework**: Cross-platform native desktop application using modern web technologies
+- **React with TypeScript**: Reactive and type-safe user interface for robust development
+- **Advanced Animation System**: Smooth transitions and engaging micro-interactions
+- **Dynamic Theming**: Modular CSS architecture for instant theme switching
+- **Optimized Local Storage**: Efficient offline data management for fast performance
+- **GraphQL Integration**: Optimized connection to AniList API for updated data
 
-### Caratteristiche Tecniche
+### Technical Features
 
-- **Installazione Nativa**: Download diretto di file eseguibili per Windows (.exe) e macOS (.dmg)
-- **Performance Ottimizzate**: Rendering efficiente delle card anime ad alta risoluzione
-- **Aggiornamenti Automatici**: Sistema integrato per mantenere l'app sempre aggiornata
-- **Offline-First**: Funzionamento completo anche senza connessione internet
-- **Sicurezza**: Protezione dei dati utente con crittografia locale
+- **Native Installation**: Direct download of executable files for Windows (.exe) and macOS (.dmg)
+- **Optimized Performance**: Efficient rendering of high-resolution anime cards
+- **Automatic Updates**: Built-in system to keep the app always up to date
+- **Offline-First**: Full functionality even without internet connection
+- **Security**: User data protection with local encryption
 
-## Sistema di Temi Multipli
+## Multiple Themes System
 
-L'applicazione offre **6 temi personalizzabili** selezionabili dalle impostazioni:
+The application offers **6 customizable themes** selectable from settings:
 
-### 1. Orange Flame (Predefinito)
-- **Primario**: Arancione vibrante (#FF6B35)
-- **Secondario**: Nero profondo (#1A1A1A)
-- **Atmosfera**: Energia dinamica per sessioni di visione attive
+### 1. Orange Flame (Default)
+- **Primary**: Vibrant orange (#FF6B35)
+- **Secondary**: Deep black (#1A1A1A)
+- **Atmosphere**: Dynamic energy for active viewing sessions
 
 ### 2. Sakura Pink
-- **Primario**: Rosa sakura (#FF69B4)
-- **Secondario**: Nero antracite (#1C1C1C)
-- **Atmosfera**: Romantica e delicata, perfetta per anime shojo
+- **Primary**: Sakura pink (#FF69B4)
+- **Secondary**: Anthracite black (#1C1C1C)
+- **Atmosphere**: Romantic and delicate, perfect for shojo anime
 
 ### 3. Ocean Blue
-- **Primario**: Blu oceano (#00BFFF)
-- **Secondario**: Blu scuro navy (#0F1419)
-- **Atmosfera**: Fresca e avventurosa, ideale per anime d'azione
+- **Primary**: Ocean blue (#00BFFF)
+- **Secondary**: Dark navy blue (#0F1419)
+- **Atmosphere**: Fresh and adventurous, ideal for action anime
 
 ### 4. Cream Elegance
-- **Primario**: Beige crema (#F5F5DC)
-- **Secondario**: Marrone moka scuro (#2F2820)
-- **Atmosfera**: Minimalista e rilassante per sessioni prolungate
+- **Primary**: Cream beige (#F5F5DC)
+- **Secondary**: Dark mocha brown (#2F2820)
+- **Atmosphere**: Minimalist and relaxing for extended sessions
 
 ### 5. Royal Purple
-- **Primario**: Viola regale (#8A2BE2)
-- **Secondario**: Nero violaceo (#1A0D1A)
-- **Atmosfera**: Mistica e affascinante per anime fantasy
+- **Primary**: Royal purple (#8A2BE2)
+- **Secondary**: Violet black (#1A0D1A)
+- **Atmosphere**: Mystical and fascinating for fantasy anime
 
 ### 6. Sunset Gold
-- **Primario**: Oro tramonto (#FFD700)
-- **Secondario**: Marrone scuro (#2B1810)
-- **Atmosfera**: Calda e nostalgica per momenti di riflessione
+- **Primary**: Sunset gold (#FFD700)
+- **Secondary**: Dark brown (#2B1810)
+- **Atmosphere**: Warm and nostalgic for reflective moments
 
-## Obiettivi di Sviluppo
+## Development Notes
 
-### Fase 1: Fondamenta
-- [ ] Setup architettura Electron + React
-- [ ] Implementazione interfaccia base
-- [ ] Integrazione AniList API
-- [ ] Sistema di storage locale
-
-### Fase 2: Funzionalità Core
-- [ ] Sistema di aggiunta/modifica anime
-- [ ] Calendario interattivo
-- [ ] Sistema di preferiti
-- [ ] Sistema di temi multipli
-
-### Fase 3: Miglioramenti
-- [ ] Notifiche episodi in uscita
-- [ ] Sistema di tracking episodi visti
-- [ ] Export/Import liste
-- [ ] Aggiornamenti automatici
-
-## Note di Sviluppo
-
-Tutti i componenti e servizi utilizzati sono e devono rimanere gratuiti, garantendo uno sviluppo sostenibile anche per progetti indipendenti o in fase iniziale. Questo approccio permette di mantenere l'applicazione accessibile a tutti gli utenti senza costi nascosti.
+All components and services used are and must remain free, ensuring sustainable development even for independent or early-stage projects. This approach allows the app to remain accessible to all users without hidden costs.
