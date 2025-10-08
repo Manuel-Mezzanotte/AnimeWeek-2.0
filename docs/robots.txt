@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://manuel-mezzanotte.github.io/AnimeWeek-2.0/sitemap.xml
