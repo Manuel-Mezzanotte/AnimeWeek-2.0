@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Detect macOS
   if (userAgent.includes('mac') || platform.includes('mac')) {
     detectedOS = 'macOS';
-    downloadUrl = 'https://github.com/Manuel-Mezzanotte/AnimeWeek-2.0/releases/download/v2.0.0/AnimeWeek-2.0.0-arm64.dmg';
+    downloadUrl = 'https://github.com/Manuel-Mezzanotte/AnimeWeek-2.0/releases/download/AnimeCalendar/AnimeWeek-2.0.0-arm64.dmg';
   }
   // Detect Windows
   else if (userAgent.includes('win') || platform.includes('win')) {
     detectedOS = 'Windows';
-    downloadUrl = 'https://github.com/Manuel-Mezzanotte/AnimeWeek-2.0/releases/download/v2.0.0/AnimeWeek.Setup.2.0.0.exe';
+    downloadUrl = 'https://github.com/Manuel-Mezzanotte/AnimeWeek-2.0/releases/download/AnimeCalendar/AnimeWeek.Setup.2.0.0.exe';
   }
   // Detect Linux (fallback to GitHub releases page)
   else if (userAgent.includes('linux') || platform.includes('linux')) {
